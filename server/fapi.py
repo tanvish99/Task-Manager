@@ -16,7 +16,6 @@ def tasks():
 	tasks = []
 	cur.execute("Select * From Tasks")
 	for row in cur:
-	
 		tasks.append(row)
 	return jsonify(tasks)
 
@@ -32,12 +31,14 @@ def users():
 
 
 @app.route('/todaystask/')
-def todaystask():
+def compute():
 	conn, cur = db()
-	todaystask = []
-	cur.execute("Select * From todaystask")
+	tasks = []
+	cur.execute("SELECT * FROM Tasks where DATE(uploaded_on) = CURDATE()")
 	for row in cur:
-		todaystask.append(row)
-	return jsonify(todaystask)
+		tasks.append(row)
+	return jsonify(tasks)
+
+	
 
 app.run(debug=True)
