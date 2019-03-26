@@ -18,8 +18,7 @@ def tasks():
 	for row in cur:
 		tasks.append(row)
 	return jsonify(tasks)
-
-
+	
 @app.route('/users/')
 def users():
 	conn, cur = db()
@@ -29,7 +28,6 @@ def users():
 		users.append(row)
 	return jsonify(users)
 
-
 @app.route('/todaystask/')
 def compute():
 	conn, cur = db()
@@ -38,7 +36,5 @@ def compute():
 	for row in cur:
 		tasks.append(row)
 	return jsonify(tasks)
-
-	
 
 app.run(debug=True)
