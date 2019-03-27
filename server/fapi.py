@@ -34,7 +34,7 @@ def compute():
 def completed():
 	conn, cur = db()
 	buf = []
-	cur.execute("SELECT * FROM Tasks where progress='100%'")
+	cur.execute("SELECT * FROM Tasks where progress='100'")
 	for row in cur:
 		buf.append(row)
 	return jsonify(buf)
@@ -43,7 +43,7 @@ def completed():
 def pending():
 	conn, cur = db()
 	pending = []
-	cur.execute("SELECT * FROM Tasks where progress<'100%'")
+	cur.execute("SELECT * FROM Tasks where progress!='100'")
 	for row in cur:
 		pending.append(row)
 	return jsonify(pending)
