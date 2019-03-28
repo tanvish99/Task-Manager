@@ -5,6 +5,7 @@ def db():
 	conn = pymysql.connect(host='localhost',port=8686,user='root',password='',db='TaskManager')
 	cur = conn.cursor()
 	return conn,cur
+
 @app.route('/tasks/')
 def tasks():
 	conn, cur = db()
@@ -13,6 +14,7 @@ def tasks():
 	for row in cur:
 		tasks.append(row)
 	return jsonify(tasks)
+
 @app.route('/users/')
 def users():
 	conn, cur = db()
@@ -34,7 +36,7 @@ def compute():
 def completed():
 	conn, cur = db()
 	buf = []
-	cur.execute("SELECT * FROM Tasks where progress='100'")
+	cur.execute("SELECT * FROM Tasks where progress=100")
 	for row in cur:
 		buf.append(row)
 	return jsonify(buf)
@@ -43,7 +45,7 @@ def completed():
 def pending():
 	conn, cur = db()
 	pending = []
-	cur.execute("SELECT * FROM Tasks where progress!='100'")
+	cur.execute("SELECT * FROM Tasks where progress<100")
 	for row in cur:
 		pending.append(row)
 	return jsonify(pending)
